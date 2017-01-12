@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+
+    <title>CTools exportables</title>
+
+    <meta name="author" content="Valery 'valthebald' Lourie"/>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<section class="slides">
+<section>
+    <h2>CTools exportables and features</h2>
+    <h3><a href="https://bit.ly/itcar2016">bit.ly/itcar2016</a></h3>
+  <br/>
+  <aside class="notes">
+    <p>
+      Slides are hosted on github, press 's' if you want to read speaker notes too.
+    </p>
+  </aside>
+</section>
+
+  <section>
+    <h2>About myself</h2>
+    <h3><a href="https://www.drupal.org/u/valthebald">Valery "valthebald" Lourie</a></h3>
+
+    Core mentoring coordinator https://www.drupal.org/core-mentoring <br/>
+
+    <a href="https://groups.drupal.org/node/515784">Global Sprint weekend 29.01</a>
+
+    <br/>
+    <aside class="notes">
+      <p>
+        Slides are hosted on github, press 's' if you want to read speaker notes too.
+      </p>
+    </aside>
+  </section>
+
+  <section>
+  <h2>What is ctools?</h2>
+
+  <h3>https://www.drupal.org/project/ctools</h3>
+
+  <ul>
+    <li> Plugins</li>
+    <li class="fragment grow highlight-green">Exportables</li>
+    <li> AJAX responder</li>
+    <li> Form tools </li>
+    <li> Object caching</li>
+    <li> Contexts</li>
+    <li> Modal dialog</li>
+    <li> Dependent</li>
+    <li> Content</li>
+    <li> Form wizard</li>
+    <li> CSS tools</li>
+  </ul>
+
+  <aside class="notes">
+    <li> Plugins -- tools to make it easy for modules to let other modules implement plugins from .inc files.</li>
+    <li> Exportables -- tools to make it easier for modules to have objects that live in database or live in code, such as 'default views'.</li>
+    <li> AJAX responder -- tools to make it easier for the server to handle AJAX requests and tell the client what to do with them.</li>
+    <li> Form tools -- tools to make it easier for forms to deal with AJAX.</li>
+    <li> Object caching -- tool to make it easier to edit an object across multiple page requests and cache the editing work.</li>
+    <li> Contexts -- the notion of wrapping objects in a unified wrapper and providing an API to create and accept these contexts as input.</li>
+    <li> Modal dialog -- tool to make it simple to put a form in a modal dialog.</li>
+    <li> Dependent -- a simple form widget to make form items appear and disappear based upon the selections in another item.</li>
+    <li> Content -- pluggable content types used as panes in Panels and other modules like Dashboard.</li>
+    <li> Form wizard -- an API to make multi-step forms much easier.</li>
+    <li> CSS tools -- tools to cache and sanitize CSS easily to make user-input CSS safe.</li>
+  </aside>
+
+</section>
+
+  <section>
+    <h2>Modules that rely on ctools</h2>
+
+    <ul>
+      <li class="fragment"> Views</li>
+      <li class="fragment"> Metatag</li>
+      <li class="fragment"> Panels</li>
+      <li class="fragment"> Features</li>
+    </ul>
+
+    <aside class="notes">Project page says it's an API module, what modules use it?
+
+    Views is _the_ most popular contrib module, so knowing ctools would be worth only if it was
+      the only item in the list. But it's not.
+
+
+    </aside>
+  </section>
+
+
+  <section>
+    <h2>Is it still relevant?</h2>
+
+
+    <div class="fragment fade-out">
+      <h3>Drupal 7</h3>
+
+      <ul>
+        <li> AJAX responder</li>
+        <li> Form tools </li>
+        <li> Dependent</li>
+        <li> Content</li>
+      </ul>
+    </div>
+
+    <div class="fragment zoom-in">
+      <h3>Drupal 8</h3>
+
+      <ul>
+        <li> Plugins</li>
+        <li> Exportables </li>
+        <li> Object caching</li>
+        <li> Context</li>
+      </ul>
+    </div>
+
+    <aside class="notes">
+      Chaos tools have served as a playground for the features missing in Drupal core,
+      As new major core versions are being released, they include either direct equivalents,
+      or features that are inspired by ctools.
+    </aside>
+
+  </section>
+
+  <section>
+    <h2>Let's focus on exportables</h2>
+
+
+
+
+    <aside class="notes">
+      1964 год. Первая попытка унификации. Основная модель - 64КБ памяти
+      Стоимость разработки 5 млрд долларов (около 30 млрд долларов в нынешних ценах)
+      135к - 2.5М в зависимости от комплектации
+      Аренда $2'700 - $115'000 в месяц
+
+      В СССР производились аналоги под маркой ЕС. На фото - ЕС-1040 в МГУ
+      Что важно - отсутствует разделение между "железной" и программной частью
+    </aside>
+  </section>
+
+  <section>
+    <h2>Эволюция накопителей. 1969</h2>
+
+    <img src="images/ferritstorage.jpg" alt="Ферритовый накопитель">
+
+    <aside class="notes">
+      1969 год - ЦВК
+    </aside>
+  </section>
+
+  <section>
+    <h2>Эволюция накопителей. 1951</h2>
+
+    <img src="images/lenta.jpg" alt="Магнитная лента">
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Эволюция накопителей. 1980-е</h2>
+
+    <img src="images/cassette.jpg" alt="Аудио кассета">
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Эволюция накопителей. 1984</h2>
+
+    <img src="images/diskette.jpg" alt="Дискета 3.5" />
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+
+  <section>
+    <h2>Эволюция накопителей. 1988</h2>
+
+    <img src="images/2000px-Compact_disc.svg.png" alt="CD" />
+
+    <aside class="notes">
+      1988 - ?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Эволюция накопителей. 2000</h2>
+
+    <img src="images/flash.jpg" alt="Флэшка" />
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Интеллектуальная собственность - это продукт</h2>
+
+    <img src="images/billgates.jpg" alt="Bill Gates" />
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Открытая архитектура IBM PC</h2>
+
+    <img src="images/Ibm_pc_5150.jpg" alt="IBM PC" />
+
+    <aside class="notes">
+      1981
+    </aside>
+  </section>
+
+  <section>
+    <h2>The web</h2>
+
+    <img src="images/bernerslee.jpg" alt="Tim Berners Lee" />
+
+    <aside class="notes">
+      1989 CERN
+    </aside>
+  </section>
+
+  <section>
+    <h2>Mobile first</h2>
+
+    <img src="images/iphone.jpg" alt="iPhone" />
+
+    <aside class="notes">
+      2007
+    </aside>
+  </section>
+
+  <section>
+    <h2>Бизнес-модели ПО</h2>
+
+    <ul>
+      <li class="fragment">Одноразовая покупка</li>
+      <li class="fragment">Подписка</li>
+      <li class="fragment">Интеграция</li>
+      <li class="fragment">Поддержка</li>
+      <li class="fragment">Специфические требования</li>
+    </ul>
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Открытый код</h2>
+
+    <img src="images/stallman.jpg" alt="Richard Stallman" />
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Открытый код</h2>
+
+    <img src="images/OpenSource.png" alt="Open Source" />
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Друпал</h2>
+
+    <img src="images/drupalusage.png.jpeg" alt="CMS usage stats" />
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h2>Друпал</h2>
+
+    <img src="images/dublinmentors.jpeg" alt="Dublin mentors" />
+
+    <aside class="notes">
+      1951 - 199?
+    </aside>
+  </section>
+
+  <section>
+    <h3>Questions?</h3>
+  </section>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
+            // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+            // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+  Reveal.addEventListener('fragmentshown')
+
+</script>
+</body>
+</html>
