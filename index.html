@@ -18,6 +18,7 @@
 
     <!-- For syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/highlight-default.min.css"/>
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -27,6 +28,7 @@
     <!--[if lt IE 9]>
     <script src="lib/js/html5shiv.js"></script>
     <![endif]-->
+    <script src="js/highlight.min.js"></script>
 </head>
 
 <body>
@@ -37,7 +39,7 @@
 <section class="slides">
 <section>
     <h2>CTools exportables and features</h2>
-    <h3><a href="https://bit.ly/itcar2016">bit.ly/itcar2016</a></h3>
+    <h3><a href="http://bit.ly/ctools-2017">bit.ly/ctools-2017</a></h3>
   <br/>
   <aside class="notes">
     <p>
@@ -60,6 +62,17 @@
         Slides are hosted on github, press 's' if you want to read speaker notes too.
       </p>
     </aside>
+  </section>
+
+  <section>
+    <h2>Agenda</h2>
+
+    <ul>
+      <li class="fragment">What are ctools</li>
+      <li class="fragment">What are ctools exportables</li>
+      <li class="fragment">How features work</li>
+      <li class="fragment">Fix and extend features</li>
+    </ul>
   </section>
 
   <section>
@@ -154,179 +167,87 @@
   <section>
     <h2>Let's focus on exportables</h2>
 
-
-
+    <img src="media/views_states.png" alt="Views states" />
 
     <aside class="notes">
-      1964 год. Первая попытка унификации. Основная модель - 64КБ памяти
-      Стоимость разработки 5 млрд долларов (около 30 млрд долларов в нынешних ценах)
-      135к - 2.5М в зависимости от комплектации
-      Аренда $2'700 - $115'000 в месяц
+      From ctools documentation: Exportable objects are objects that can live either in the database or in code, or in both. If they live in both, then the object in code is considered to be "overridden", meaning that the version in code is ignored in favor of the version in the database.
 
-      В СССР производились аналоги под маркой ЕС. На фото - ЕС-1040 в МГУ
-      Что важно - отсутствует разделение между "железной" и программной частью
+      Using this system, you can give your objects dual life. They can be created in the UI, exported into code and put in revision control. Views and Panels both use this system heavily. Plus, any object that properly implements this system can be utilized by the Features module to be used as part of a bundle of objects that can be turned into feature modules.
     </aside>
   </section>
 
   <section>
-    <h2>Эволюция накопителей. 1969</h2>
+    <h2>How do you make "something" exportable?</h2>
 
-    <img src="images/ferritstorage.jpg" alt="Ферритовый накопитель">
+    <pre><code class="php line-numbers">
+   // @see https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_schema/7.x
+   function views_schema() {
+     $schema['views_view'] = array(
+       'description': 'Stores the general data for a view.',
+       'fields' => // ... table fields definition
+       'export' => array(
+         'identifier' => "view",
+         'primary key' => "vid",
+         'default hook' => "views_default_views",
+         'object': "view",
+...
+    </code></pre>
+
 
     <aside class="notes">
-      1969 год - ЦВК
+      This is (_very_ simplified) excerpt from views_schema that describes how one should export views configuration
+    <ol>
+      <li>In your module's <a href="https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_schema/7.x" target="_blank">hook_schema()</a> implementation, add definition of the table that will store data about "something"-s .</li>
+      <li>Create a load function for your object that utilizes ctools_export_load_object().</li>
+      <li>Create a save function for your object that utilizes drupal_write_record() or any method you desire.</li>
+      <li>Optionally, create an import and export mechanism from the UI.</li>
+    </ol>
     </aside>
   </section>
 
   <section>
-    <h2>Эволюция накопителей. 1951</h2>
+    <h2>From UI to the code.</h2>
 
-    <img src="images/lenta.jpg" alt="Магнитная лента">
-
-    <aside class="notes">
-      1951 - 199?
-    </aside>
+    <img src="media/views_export.png" alt="Export screen" />
   </section>
 
   <section>
-    <h2>Эволюция накопителей. 1980-е</h2>
-
-    <img src="images/cassette.jpg" alt="Аудио кассета">
-
-    <aside class="notes">
-      1951 - 199?
-    </aside>
+    <h2>From UI to the code.</h2>
+    <pre><code class="php">
+      function mymodule_views_default_views() {
+        // Paste code from the export screen.
+        $views['my_view'] = $view;
+        return $views;
+      }
+    </code></pre>
   </section>
 
   <section>
-    <h2>Эволюция накопителей. 1984</h2>
-
-    <img src="images/diskette.jpg" alt="Дискета 3.5" />
-
+    <h2>Here comes the Features</h2>
+    <img src="media/feature.png" alt="Example feature"/>
     <aside class="notes">
-      1951 - 199?
-    </aside>
-  </section>
-
-
-  <section>
-    <h2>Эволюция накопителей. 1988</h2>
-
-    <img src="images/2000px-Compact_disc.svg.png" alt="CD" />
-
-    <aside class="notes">
-      1988 - ?
-    </aside>
-  </section>
-
-  <section>
-    <h2>Эволюция накопителей. 2000</h2>
-
-    <img src="images/flash.jpg" alt="Флэшка" />
-
-    <aside class="notes">
-      1951 - 199?
-    </aside>
-  </section>
-
-  <section>
-    <h2>Интеллектуальная собственность - это продукт</h2>
-
-    <img src="images/billgates.jpg" alt="Bill Gates" />
-
-    <aside class="notes">
-      1951 - 199?
-    </aside>
-  </section>
-
-  <section>
-    <h2>Открытая архитектура IBM PC</h2>
-
-    <img src="images/Ibm_pc_5150.jpg" alt="IBM PC" />
-
-    <aside class="notes">
-      1981
-    </aside>
-  </section>
-
-  <section>
-    <h2>The web</h2>
-
-    <img src="images/bernerslee.jpg" alt="Tim Berners Lee" />
-
-    <aside class="notes">
-      1989 CERN
-    </aside>
-  </section>
-
-  <section>
-    <h2>Mobile first</h2>
-
-    <img src="images/iphone.jpg" alt="iPhone" />
-
-    <aside class="notes">
-      2007
-    </aside>
-  </section>
-
-  <section>
-    <h2>Бизнес-модели ПО</h2>
-
-    <ul>
-      <li class="fragment">Одноразовая покупка</li>
-      <li class="fragment">Подписка</li>
-      <li class="fragment">Интеграция</li>
-      <li class="fragment">Поддержка</li>
-      <li class="fragment">Специфические требования</li>
-    </ul>
-
-    <aside class="notes">
-      1951 - 199?
-    </aside>
-  </section>
-
-  <section>
-    <h2>Открытый код</h2>
-
-    <img src="images/stallman.jpg" alt="Richard Stallman" />
-
-    <aside class="notes">
-      1951 - 199?
-    </aside>
-  </section>
-
-  <section>
-    <h2>Открытый код</h2>
-
-    <img src="images/OpenSource.png" alt="Open Source" />
-
-    <aside class="notes">
-      1951 - 199?
-    </aside>
-  </section>
-
-  <section>
-    <h2>Друпал</h2>
-
-    <img src="images/drupalusage.png.jpeg" alt="CMS usage stats" />
-
-    <aside class="notes">
-      1951 - 199?
-    </aside>
-  </section>
-
-  <section>
-    <h2>Друпал</h2>
-
-    <img src="images/dublinmentors.jpeg" alt="Dublin mentors" />
-
-    <aside class="notes">
-      1951 - 199?
+      Time to remember that we have another module in the session title!
     </aside>
   </section>
 
   <section>
     <h3>Questions?</h3>
+  </section>
+
+
+  <section>
+    <h2>Altering other modules' data.</h2>
+    <pre><code class="php">
+      /**
+       * Implements hook_image_default_styles_alter().
+       */
+      function mymodule_image_default_styles_alter(array &$styles) {
+        if (!isset($styles['category_item_image'])) {
+          return;
+        }
+        $styles['category_item_image']['label'] = 'My awesome label';
+      }
+    </code></pre>
   </section>
 
 </div>
@@ -372,8 +293,7 @@
         ]
     });
 
-  Reveal.addEventListener('fragmentshown')
-
+  Reveal.addEventListener('fragmentshown');
 </script>
 </body>
 </html>
