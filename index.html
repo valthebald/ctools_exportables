@@ -231,11 +231,6 @@
   </section>
 
   <section>
-    <h3>Questions?</h3>
-  </section>
-
-
-  <section>
     <h2>Altering other modules' data.</h2>
     <pre><code class="php">
       /**
@@ -248,7 +243,36 @@
         $styles['category_item_image']['label'] = 'My awesome label';
       }
     </code></pre>
+    <aside class="notes">
+      Time to remember that we have another module in the session title!
+    </aside>
   </section>
+
+  <section>
+    <h2>Agenda</h2>
+
+    <ul>
+      <li class="fragment">What are ctools</li>
+      <li class="fragment">What are ctools exportables</li>
+      <li class="fragment">How features work</li>
+      <li class="fragment">Fix and extend features</li>
+    </ul>
+
+    <aside class="notes">
+      ctools is a set of API tools aimed at module developers
+      exportables are configuration objects that can be stored in code or database.
+      feature automate operations with groups of exportables
+       - place definition of exportables in code (create/recreate a feature)
+       - revert exportable - delete configuration from database
+       - update feature - update configuration stored in code with the one stored in DB
+      you can overcome features limitations and extend it by using alter hooks
+    </aside>
+  </section>
+
+  <section>
+    <h3>Questions?</h3>
+  </section>
+
 
 </div>
 
